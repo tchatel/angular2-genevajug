@@ -1,3 +1,6 @@
+[Demo is here.](http://tchatel.github.com/angular2-genevajug/)
+
+
 **install:**
 
     npm install tsd
