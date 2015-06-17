@@ -21,6 +21,22 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
     //    Validators,
     //    ON_PUSH
     //    } from 'angular2/angular2';
+    var CartComponent = (function () {
+        function CartComponent() {
+        }
+        CartComponent = __decorate([
+            angular2_1.Component({
+                selector: 'cart',
+                properties: ['model']
+            }),
+            angular2_1.View({
+                template: "\n        <div class=\"rows\">\n            <div *ng-for=\"#row of model.rows\">{{row.product.reference}}</div>\n        </div>\n        <p>Model:{{model |\u00A0json}}</p>\n    ",
+                directives: [angular2_1.NgFor]
+            }), 
+            __metadata('design:paramtypes', [])
+        ], CartComponent);
+        return CartComponent;
+    })();
     var CartExample = (function () {
         function CartExample() {
             this.cart = cartBuilder.getSmall();
@@ -30,8 +46,8 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 selector: 'cart-example'
             }),
             angular2_1.View({
-                template: "\n        <div *ng-for=\"#row of cart.rows\">{{row.product.label}}</div>\n        {{cart |json}}\n    ",
-                directives: [angular2_1.NgFor]
+                template: "\n        <cart [model]=\"cart\"></cart>\n    ",
+                directives: [CartComponent]
             }), 
             __metadata('design:paramtypes', [])
         ], CartExample);

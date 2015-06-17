@@ -19,14 +19,32 @@ import {
 
 
 @Component({
+    selector: 'cart',
+    properties: ['model']
+})
+@View({
+    template: `
+        <div class="rows">
+            <div *ng-for="#row of model.rows">{{row.product.reference}}</div>
+        </div>
+        <p>Model:{{model | json}}</p>
+    `,
+    directives: [NgFor]
+})
+class CartComponent {
+    model: Cart;
+    constructor() {
+    }
+}
+
+@Component({
     selector: 'cart-example'
 })
 @View({
     template: `
-        <div *ng-for="#row of cart.rows">{{row.product.label}}</div>
-        {{cart |json}}
+        <cart [model]="cart"></cart>
     `,
-    directives: [NgFor]
+    directives: [CartComponent]
 })
 class CartExample {
     cart: Cart;
