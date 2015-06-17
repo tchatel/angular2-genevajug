@@ -5,7 +5,8 @@ import {
     NgFor,
     FormBuilder,
     ControlGroup,
-    Validators
+    Validators,
+    formDirectives
 } from 'angular2/angular2';
 
 //import {
@@ -28,11 +29,17 @@ import {
 })
 @View({
     template: `
-        <form>
-        FORM : {{form.value |json}}
+        <form [ng-form-model]="form">
+          <span ng-control-group="product">
+            <label>Reference: <input type="text" ng-control="reference"/></label>
+            <label>Label: <input type="text" ng-control="label"/></label>
+            <label>Price: <input type="number" ng-control="price"/></label>
+          </span>
+            <label>Quantity: <input type="number" ng-control="quantity"/></label>
+            <p>FORM : {{form.value |json}}</p>
         </form>
     `,
-    directives: []
+    directives: [formDirectives]
 })
 class CartFormComponent {
     model: Cart;

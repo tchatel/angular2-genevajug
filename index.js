@@ -39,8 +39,8 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 appInjector: [angular2_1.FormBuilder]
             }),
             angular2_1.View({
-                template: "\n        <form>\n        FORM : {{form.value |json}}\n        </form>\n    ",
-                directives: []
+                template: "\n        <form [ng-form-model]=\"form\">\n          <span ng-control-group=\"product\">\n            <label>Reference: <input type=\"text\" ng-control=\"reference\"/></label>\n            <label>Label: <input type=\"text\" ng-control=\"label\"/></label>\n            <label>Price: <input type=\"number\" ng-control=\"price\"/></label>\n          </span>\n            <label>Quantity: <input type=\"number\" ng-control=\"quantity\"/></label>\n            <p>FORM : {{form.value |json}}</p>\n        </form>\n    ",
+                directives: [angular2_1.formDirectives]
             }), 
             __metadata('design:paramtypes', [angular2_1.FormBuilder])
         ], CartFormComponent);
