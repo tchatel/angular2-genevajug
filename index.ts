@@ -22,11 +22,12 @@ import {
 })
 @View({
     template: `
-        <h1>Hello</h1>
+        <h1>Hello {{data}}</h1>
     `,
     directives: []
 })
 class CartExample {
+    data: string = "world";
     constructor() {
     }
 }
