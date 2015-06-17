@@ -21,11 +21,40 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
     //    Validators,
     //    ON_PUSH
     //    } from 'angular2/angular2';
+    var CartFormComponent = (function () {
+        function CartFormComponent(fb) {
+            this.form = fb.group({
+                product: fb.group({
+                    reference: ["", angular2_1.Validators.required],
+                    label: ["", angular2_1.Validators.required],
+                    price: ["", angular2_1.Validators.required]
+                }),
+                quantity: ["", angular2_1.Validators.required],
+            });
+        }
+        CartFormComponent.prototype.add = function () {
+            var value = this.form.value, quantity = value.quantity, product = value.product;
+            this.model.rows.push(new CartRow(new Product(product.reference, product.label, product.price), quantity));
+        };
+        CartFormComponent = __decorate([
+            angular2_1.Component({
+                selector: 'cart-form',
+                properties: ['model'],
+                appInjector: [angular2_1.FormBuilder]
+            }),
+            angular2_1.View({
+                template: "\n        <form [ng-form-model]=\"form\">\n          <span ng-control-group=\"product\">\n            <label>Reference: <input type=\"text\" ng-control=\"reference\"/></label>\n            <label>Label: <input type=\"text\" ng-control=\"label\"/></label>\n            <label>Price: <input type=\"number\" ng-control=\"price\"/></label>\n          </span>\n            <label>Quantity: <input type=\"number\" ng-control=\"quantity\"/></label>\n            <input type=\"button\" (click)=\"add()\" value=\"Add\" [disabled]=\"!form.valid\"/>\n        </form>\n    ",
+                directives: [angular2_1.formDirectives]
+            }), 
+            __metadata('design:paramtypes', [angular2_1.FormBuilder])
+        ], CartFormComponent);
+        return CartFormComponent;
+    })();
     var CartRowComponent = (function () {
         function CartRowComponent() {
         }
-        CartRowComponent.prototype.remove = function (model, parentModel) {
-            return parentModel.remove(model);
+        CartRowComponent.prototype.remove = function () {
+            this.parentModel.remove(this.model);
         };
         CartRowComponent = __decorate([
             angular2_1.Component({
@@ -34,7 +63,8 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 changeDetection: angular2_1.ON_PUSH
             }),
             angular2_1.View({
-                template: "\n        <div class=\"cart-col\">{{model.product.reference}}</div>\n        <div class=\"cart-col\">{{model.product.label}}</div>\n        <div class=\"cart-col\">{{model.product.getPrice()}}</div>\n        <div class=\"cart-col\">{{model.quantity}}</div>\n        <div class=\"cart-col\">{{model.getAmount()}}</div>\n        <div class=\"cart-col\"><button (click)=\"remove(model, parentModel)\">Remove</button></div>\n    "
+                template: "\n        <div class=\"cart-col\">{{model.product.reference}}</div>\n        <div class=\"cart-col\">{{model.product.label}}</div>\n        <div class=\"cart-col\">{{model.product.getPrice()}}</div>\n        <div class=\"cart-col\">{{model.quantity}}</div>\n        <div class=\"cart-col\">{{model.getAmount()}}</div>\n        <div class=\"cart-col\"><button (click)=\"remove()\">Remove</button></div>\n    ",
+                directives: []
             }), 
             __metadata('design:paramtypes', [])
         ], CartRowComponent);
@@ -49,60 +79,31 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 properties: ['model']
             }),
             angular2_1.View({
-                template: "\n        <div class=\"rows\">\n            <div class=\"cart-header\">\n                <div class=\"cart-col\">Reference</div>\n                <div class=\"cart-col\">Label</div>\n                <div class=\"cart-col\">Price</div>\n                <div class=\"cart-col\">Quantity</div>\n                <div class=\"cart-col\">Amount</div>\n                <div class=\"cart-col\"></div>\n            </div>\n            <cart-row class=\"cart-row\" *ng-for=\"#cartRow of model.rows\" [model]=\"cartRow\" [parent-model]=\"model\"></cart-row>\n        </div>\n        <p>Model:{{model |\u00A0json}}</p>\n    ",
+                template: "\n        <div class=\"rows\">\n            <div class=\"cart-header\">\n                <div class=\"cart-col\">Reference</div>\n                <div class=\"cart-col\">Label</div>\n                <div class=\"cart-col\">Price</div>\n                <div class=\"cart-col\">Quantity</div>\n                <div class=\"cart-col\">Amount</div>\n                <div class=\"cart-col\"></div>\n            </div>\n            <cart-row *ng-for=\"#row of model.rows\" [model]=\"row\" [parent-model]=\"model\"></cart-row>\n        </div>\n    ",
                 directives: [angular2_1.NgFor, CartRowComponent]
             }), 
             __metadata('design:paramtypes', [])
         ], CartComponent);
         return CartComponent;
     })();
-    var CartForm = (function () {
-        function CartForm(fb) {
-            this.form = fb.group({
-                product: fb.group({
-                    label: ["", angular2_1.Validators.required],
-                    reference: ["", angular2_1.Validators.required],
-                    price: [undefined, angular2_1.Validators.required]
-                }),
-                quantity: [undefined, angular2_1.Validators.required]
-            });
-        }
-        CartForm.prototype.add = function () {
-            var value = this.form.value, quantity = value.quantity, product = value.product;
-            this.model.rows.push(new CartRow(new Product(product.reference, product.label, product.price), quantity));
-        };
-        CartForm = __decorate([
-            angular2_1.Component({
-                selector: 'cart-form',
-                properties: ['model'],
-                appInjector: [angular2_1.FormBuilder]
-            }),
-            angular2_1.View({
-                template: "\n        <h2>Ajout d'une ligne</h2>\n        <form [ng-form-model]=\"form\">\n            <div ng-control-group=\"product\">\n                <p><label>R\u00E9f\u00E9rence <input ng-control=\"reference\" type=\"text\"/></label></p>\n                <p><label>Libell\u00E9 <input ng-control=\"label\" type=\"text\"/></label></p>\n                <p><label>Prix <input ng-control=\"price\" type=\"number\"/></label></p>\n            </div>\n            <p><label>Quantit\u00E9 <input ng-control=\"quantity\" type=\"number\"/></label></p>\n            <p><input type=\"button\" value=\"Ajouter\"  (click)=\"add()\" /></p>\n        </form>\n        <p>{{form.value|json}}</p>\n    ",
-                directives: [angular2_1.formDirectives]
-            }), 
-            __metadata('design:paramtypes', [angular2_1.FormBuilder])
-        ], CartForm);
-        return CartForm;
-    })();
     var CartExample = (function () {
         function CartExample() {
             this.cart = cartBuilder.getSmall();
         }
+        CartExample.prototype.big = function () {
+            this.cart.rows = cartBuilder.getBig().rows;
+        };
         CartExample.prototype.change = function () {
             var n = +(this.cart.rows[1].product.label.split(' ')[1]) + 1;
             this.cart.rows[1] = new CartRow(new Product("REF02", "Product " + n, 22), 1);
-        };
-        CartExample.prototype.big = function () {
-            this.cart.rows = cartBuilder.getBig().rows;
         };
         CartExample = __decorate([
             angular2_1.Component({
                 selector: 'cart-example'
             }),
             angular2_1.View({
-                template: "\n        <p>\n            <button (click)=\"change()\">Change</button>\n            <button (click)=\"big()\">Big</button>\n        </p>\n        <cart [model]=\"cart\"></cart>\n        <cart-form [model]=\"cart\"></cart-form>\n    ",
-                directives: [CartComponent, CartForm]
+                template: "\n        <p>\n            <button (click)=\"big()\">Big</button>\n            <button (click)=\"change()\">Change</button>\n        </p>\n        <cart [model]=\"cart\"></cart>\n        <cart-form [model]=\"cart\"></cart-form>\n    ",
+                directives: [CartComponent, CartFormComponent]
             }), 
             __metadata('design:paramtypes', [])
         ], CartExample);
