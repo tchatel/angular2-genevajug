@@ -1,7 +1,8 @@
 import {
     bootstrap,
     Component,
-    View
+    View,
+    NgFor
 } from 'angular2/angular2';
 
 //import {
@@ -22,9 +23,10 @@ import {
 })
 @View({
     template: `
+        <div *ng-for="#row of cart.rows">{{row.product.label}}</div>
         {{cart |json}}
     `,
-    directives: []
+    directives: [NgFor]
 })
 class CartExample {
     cart: Cart;

@@ -30,8 +30,8 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 selector: 'cart-example'
             }),
             angular2_1.View({
-                template: "\n        {{cart |json}}\n    ",
-                directives: []
+                template: "\n        <div *ng-for=\"#row of cart.rows\">{{row.product.label}}</div>\n        {{cart |json}}\n    ",
+                directives: [angular2_1.NgFor]
             }), 
             __metadata('design:paramtypes', [])
         ], CartExample);
