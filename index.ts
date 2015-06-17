@@ -21,7 +21,7 @@ import {
 
 @Component({
     selector: 'cart-row',
-    properties: ['model']
+    properties: ['model', 'parentModel']
 })
 @View({
     template: `
@@ -30,13 +30,17 @@ import {
         <div class="cart-col">{{model.product.getPrice()}}</div>
         <div class="cart-col">{{model.quantity}}</div>
         <div class="cart-col">{{model.getAmount()}}</div>
-        <div class="cart-col"></div>
+        <div class="cart-col"><button (click)="remove()">Remove</button></div>
     `,
     directives: []
 })
 class CartRowComponent {
     model: CartRow;
+    parentModel: Cart;
     constructor() {
+    }
+    remove() {
+        this.parentModel.remove(this.model);
     }
 }
 
@@ -55,7 +59,7 @@ class CartRowComponent {
                 <div class="cart-col">Amount</div>
                 <div class="cart-col"></div>
             </div>
-            <cart-row *ng-for="#row of model.rows" [model]="row"></cart-row>
+            <cart-row *ng-for="#row of model.rows" [model]="row" [parent-model]="model"></cart-row>
         </div>
         <p>Model:{{model | json}}</p>
     `,

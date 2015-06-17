@@ -24,13 +24,16 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
     var CartRowComponent = (function () {
         function CartRowComponent() {
         }
+        CartRowComponent.prototype.remove = function () {
+            this.parentModel.remove(this.model);
+        };
         CartRowComponent = __decorate([
             angular2_1.Component({
                 selector: 'cart-row',
-                properties: ['model']
+                properties: ['model', 'parentModel']
             }),
             angular2_1.View({
-                template: "\n        <div class=\"cart-col\">{{model.product.reference}}</div>\n        <div class=\"cart-col\">{{model.product.label}}</div>\n        <div class=\"cart-col\">{{model.product.getPrice()}}</div>\n        <div class=\"cart-col\">{{model.quantity}}</div>\n        <div class=\"cart-col\">{{model.getAmount()}}</div>\n        <div class=\"cart-col\"></div>\n    ",
+                template: "\n        <div class=\"cart-col\">{{model.product.reference}}</div>\n        <div class=\"cart-col\">{{model.product.label}}</div>\n        <div class=\"cart-col\">{{model.product.getPrice()}}</div>\n        <div class=\"cart-col\">{{model.quantity}}</div>\n        <div class=\"cart-col\">{{model.getAmount()}}</div>\n        <div class=\"cart-col\"><button (click)=\"remove()\">Remove</button></div>\n    ",
                 directives: []
             }), 
             __metadata('design:paramtypes', [])
@@ -46,7 +49,7 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 properties: ['model']
             }),
             angular2_1.View({
-                template: "\n        <div class=\"rows\">\n            <div class=\"cart-header\">\n                <div class=\"cart-col\">Reference</div>\n                <div class=\"cart-col\">Label</div>\n                <div class=\"cart-col\">Price</div>\n                <div class=\"cart-col\">Quantity</div>\n                <div class=\"cart-col\">Amount</div>\n                <div class=\"cart-col\"></div>\n            </div>\n            <cart-row *ng-for=\"#row of model.rows\" [model]=\"row\"></cart-row>\n        </div>\n        <p>Model:{{model |\u00A0json}}</p>\n    ",
+                template: "\n        <div class=\"rows\">\n            <div class=\"cart-header\">\n                <div class=\"cart-col\">Reference</div>\n                <div class=\"cart-col\">Label</div>\n                <div class=\"cart-col\">Price</div>\n                <div class=\"cart-col\">Quantity</div>\n                <div class=\"cart-col\">Amount</div>\n                <div class=\"cart-col\"></div>\n            </div>\n            <cart-row *ng-for=\"#row of model.rows\" [model]=\"row\" [parent-model]=\"model\"></cart-row>\n        </div>\n        <p>Model:{{model |\u00A0json}}</p>\n    ",
                 directives: [angular2_1.NgFor, CartRowComponent]
             }), 
             __metadata('design:paramtypes', [])
