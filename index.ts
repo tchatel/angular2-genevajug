@@ -10,6 +10,18 @@ import {
     ON_PUSH
 } from 'angular2/angular2';
 
+//import {
+//    bootstrap,
+//    NgFor,
+//    Component,
+//    View,
+//    formDirectives,
+//    FormBuilder, ControlGroup,
+//    Control,
+//    Validators,
+//    ON_PUSH
+//    } from 'angular2/angular2';
+
 
 @Component({
     selector: 'cart-row',

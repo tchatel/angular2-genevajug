@@ -10,6 +10,17 @@ if (typeof __metadata !== "function") __metadata = function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 define(["require", "exports", 'angular2/angular2'], function (require, exports, angular2_1) {
+    //import {
+    //    bootstrap,
+    //    NgFor,
+    //    Component,
+    //    View,
+    //    formDirectives,
+    //    FormBuilder, ControlGroup,
+    //    Control,
+    //    Validators,
+    //    ON_PUSH
+    //    } from 'angular2/angular2';
     var CartRowComponent = (function () {
         function CartRowComponent() {
         }
