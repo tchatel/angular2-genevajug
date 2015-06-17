@@ -32,6 +32,9 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 quantity: ["", angular2_1.Validators.required],
             });
         }
+        CartFormComponent.prototype.add = function () {
+            console.log(this.form);
+        };
         CartFormComponent = __decorate([
             angular2_1.Component({
                 selector: 'cart-form',
@@ -39,7 +42,7 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 appInjector: [angular2_1.FormBuilder]
             }),
             angular2_1.View({
-                template: "\n        <form [ng-form-model]=\"form\">\n          <span ng-control-group=\"product\">\n            <label>Reference: <input type=\"text\" ng-control=\"reference\"/></label>\n            <label>Label: <input type=\"text\" ng-control=\"label\"/></label>\n            <label>Price: <input type=\"number\" ng-control=\"price\"/></label>\n          </span>\n            <label>Quantity: <input type=\"number\" ng-control=\"quantity\"/></label>\n            <p>FORM : {{form.value |json}}</p>\n        </form>\n    ",
+                template: "\n        <form [ng-form-model]=\"form\">\n          <span ng-control-group=\"product\">\n            <label>Reference: <input type=\"text\" ng-control=\"reference\"/></label>\n            <label>Label: <input type=\"text\" ng-control=\"label\"/></label>\n            <label>Price: <input type=\"number\" ng-control=\"price\"/></label>\n          </span>\n            <label>Quantity: <input type=\"number\" ng-control=\"quantity\"/></label>\n            <input type=\"button\" (click)=\"add()\" value=\"Add\" [disabled]=\"!form.valid\"/>\n            <p>FORM : {{form.value |json}}</p>\n        </form>\n    ",
                 directives: [angular2_1.formDirectives]
             }), 
             __metadata('design:paramtypes', [angular2_1.FormBuilder])

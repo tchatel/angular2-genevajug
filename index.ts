@@ -36,6 +36,7 @@ import {
             <label>Price: <input type="number" ng-control="price"/></label>
           </span>
             <label>Quantity: <input type="number" ng-control="quantity"/></label>
+            <input type="button" (click)="add()" value="Add" [disabled]="!form.valid"/>
             <p>FORM : {{form.value |json}}</p>
         </form>
     `,
@@ -53,6 +54,9 @@ class CartFormComponent {
             }),
             quantity: ["", Validators.required],
         });
+    }
+    add() {
+        console.log(this.form);
     }
 }
 
