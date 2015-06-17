@@ -2,7 +2,10 @@ import {
     bootstrap,
     Component,
     View,
-    NgFor
+    NgFor,
+    FormBuilder,
+    ControlGroup,
+    Validators
 } from 'angular2/angular2';
 
 //import {
@@ -17,6 +20,34 @@ import {
 //    ON_PUSH
 //    } from 'angular2/angular2';
 
+
+@Component({
+    selector: 'cart-form',
+    properties: ['model'],
+    appInjector: [FormBuilder]
+})
+@View({
+    template: `
+        <form>
+        FORM : {{form.value |json}}
+        </form>
+    `,
+    directives: []
+})
+class CartFormComponent {
+    model: Cart;
+    form: ControlGroup;
+    constructor(fb: FormBuilder) {
+        this.form = fb.group({
+            product: fb.group({
+                reference: ["", Validators.required],
+                label: ["", Validators.required],
+                price: ["", Validators.required]
+            }),
+            quantity: ["", Validators.required],
+        });
+    }
+}
 
 
 @Component({
@@ -77,8 +108,9 @@ class CartComponent {
 @View({
     template: `
         <cart [model]="cart"></cart>
+        <cart-form [model]="cart"></cart-form>
     `,
-    directives: [CartComponent]
+    directives: [CartComponent, CartFormComponent]
 })
 class CartExample {
     cart: Cart;

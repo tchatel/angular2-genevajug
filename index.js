@@ -21,6 +21,31 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
     //    Validators,
     //    ON_PUSH
     //    } from 'angular2/angular2';
+    var CartFormComponent = (function () {
+        function CartFormComponent(fb) {
+            this.form = fb.group({
+                product: fb.group({
+                    reference: ["", angular2_1.Validators.required],
+                    label: ["", angular2_1.Validators.required],
+                    price: ["", angular2_1.Validators.required]
+                }),
+                quantity: ["", angular2_1.Validators.required],
+            });
+        }
+        CartFormComponent = __decorate([
+            angular2_1.Component({
+                selector: 'cart-form',
+                properties: ['model'],
+                appInjector: [angular2_1.FormBuilder]
+            }),
+            angular2_1.View({
+                template: "\n        <form>\n        FORM : {{form.value |json}}\n        </form>\n    ",
+                directives: []
+            }), 
+            __metadata('design:paramtypes', [angular2_1.FormBuilder])
+        ], CartFormComponent);
+        return CartFormComponent;
+    })();
     var CartRowComponent = (function () {
         function CartRowComponent() {
         }
@@ -65,8 +90,8 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 selector: 'cart-example'
             }),
             angular2_1.View({
-                template: "\n        <cart [model]=\"cart\"></cart>\n    ",
-                directives: [CartComponent]
+                template: "\n        <cart [model]=\"cart\"></cart>\n        <cart-form [model]=\"cart\"></cart-form>\n    ",
+                directives: [CartComponent, CartFormComponent]
             }), 
             __metadata('design:paramtypes', [])
         ], CartExample);
