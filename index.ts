@@ -56,7 +56,19 @@ class CartFormComponent {
         });
     }
     add() {
-        console.log(this.form);
+        var value = this.form.value,
+            quantity = value.quantity,
+            product = value.product;
+        this.model.rows.push(
+            new CartRow(
+                new Product(
+                    product.reference,
+                    product.label,
+                    product.price
+                ),
+                quantity
+            )
+        );
     }
 }
 
