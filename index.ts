@@ -22,7 +22,8 @@ import {
 })
 @View({
     template: `
-        <h1>Hello</h1>
+        <input #name (keyup)/>
+        <h1>Hello {{name.value}}</h1>
     `,
     directives: []
 })

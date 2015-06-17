@@ -29,7 +29,7 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                 selector: 'cart-example'
             }),
             angular2_1.View({
-                template: "\n        <h1>Hello</h1>\n    ",
+                template: "\n        <input #name (keyup)/>\n        <h1>Hello {{name.value}}</h1>\n    ",
                 directives: []
             }), 
             __metadata('design:paramtypes', [])
