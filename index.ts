@@ -18,6 +18,28 @@ import {
 //    } from 'angular2/angular2';
 
 
+
+@Component({
+    selector: 'cart-row',
+    properties: ['model']
+})
+@View({
+    template: `
+        <div class="cart-col">{{model.product.reference}}</div>
+        <div class="cart-col">{{model.product.label}}</div>
+        <div class="cart-col">{{model.product.getPrice()}}</div>
+        <div class="cart-col">{{model.quantity}}</div>
+        <div class="cart-col">{{model.getAmount()}}</div>
+        <div class="cart-col"></div>
+    `,
+    directives: []
+})
+class CartRowComponent {
+    model: CartRow;
+    constructor() {
+    }
+}
+
 @Component({
     selector: 'cart',
     properties: ['model']
@@ -25,11 +47,19 @@ import {
 @View({
     template: `
         <div class="rows">
-            <div *ng-for="#row of model.rows">{{row.product.reference}}</div>
+            <div class="cart-header">
+                <div class="cart-col">Reference</div>
+                <div class="cart-col">Label</div>
+                <div class="cart-col">Price</div>
+                <div class="cart-col">Quantity</div>
+                <div class="cart-col">Amount</div>
+                <div class="cart-col"></div>
+            </div>
+            <cart-row *ng-for="#row of model.rows" [model]="row"></cart-row>
         </div>
         <p>Model:{{model | json}}</p>
     `,
-    directives: [NgFor]
+    directives: [NgFor, CartRowComponent]
 })
 class CartComponent {
     model: Cart;
