@@ -6,7 +6,8 @@ import {
     FormBuilder,
     ControlGroup,
     Validators,
-    formDirectives
+    formDirectives,
+    ON_PUSH
 } from 'angular2/angular2';
 
 //import {
@@ -37,7 +38,6 @@ import {
           </span>
             <label>Quantity: <input type="number" ng-control="quantity"/></label>
             <input type="button" (click)="add()" value="Add" [disabled]="!form.valid"/>
-            <p>FORM : {{form.value |json}}</p>
         </form>
     `,
     directives: [formDirectives]
@@ -75,7 +75,8 @@ class CartFormComponent {
 
 @Component({
     selector: 'cart-row',
-    properties: ['model', 'parentModel']
+    properties: ['model', 'parentModel'],
+    changeDetection: ON_PUSH
 })
 @View({
     template: `
@@ -115,7 +116,6 @@ class CartRowComponent {
             </div>
             <cart-row *ng-for="#row of model.rows" [model]="row" [parent-model]="model"></cart-row>
         </div>
-        <p>Model:{{model | json}}</p>
     `,
     directives: [NgFor, CartRowComponent]
 })
@@ -130,6 +130,10 @@ class CartComponent {
 })
 @View({
     template: `
+        <p>
+            <button (click)="big()">Big</button>
+            <button (click)="change()">Change</button>
+        </p>
         <cart [model]="cart"></cart>
         <cart-form [model]="cart"></cart-form>
     `,
@@ -139,6 +143,13 @@ class CartExample {
     cart: Cart;
     constructor() {
         this.cart = cartBuilder.getSmall();
+    }
+    big() {
+        this.cart.rows = cartBuilder.getBig().rows;
+    }
+    change() {
+        var n = +(this.cart.rows[1].product.label.split(' ')[1]) + 1;
+        this.cart.rows[1] = new CartRow(new Product("REF02", "Product " + n, 22), 1);
     }
 }
 
