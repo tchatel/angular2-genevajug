@@ -23,13 +23,14 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
     //    } from 'angular2/angular2';
     var CartExample = (function () {
         function CartExample() {
+            this.cart = cartBuilder.getSmall();
         }
         CartExample = __decorate([
             angular2_1.Component({
                 selector: 'cart-example'
             }),
             angular2_1.View({
-                template: "\n        <input #name (keyup)/>\n        <h1>Hello {{name.value}}</h1>\n    ",
+                template: "\n        {{cart |json}}\n    ",
                 directives: []
             }), 
             __metadata('design:paramtypes', [])

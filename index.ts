@@ -22,13 +22,14 @@ import {
 })
 @View({
     template: `
-        <input #name (keyup)/>
-        <h1>Hello {{name.value}}</h1>
+        {{cart |json}}
     `,
     directives: []
 })
 class CartExample {
+    cart: Cart;
     constructor() {
+        this.cart = cartBuilder.getSmall();
     }
 }
 
